@@ -5,11 +5,10 @@ from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECURITY
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key-you-should-change")
 DEBUG = os.getenv("DEBUG", "True") == "True"
-
-# Allow all hosts in dev, set proper host in prod
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ["*"]  # You can tighten this in production
 
 # Applications
 INSTALLED_APPS = [
@@ -87,7 +86,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
@@ -98,11 +97,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS settings
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS",
-    "https://blog-frontend-beige-delta.vercel.app/",
-    "http://localhost:3000"
+    "https://blog-frontend-beige-delta.vercel.app,http://localhost:3000"
 ).split(",")
 
-# REST Framework - Force JSON-only responses
+# REST Framework - JSON only
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
